@@ -1,55 +1,70 @@
-# Download the git repository locally
+### Download the git repository locally
+```sh
 $ git clone https://github.com/ngarg-coursera/programming-assignments-coursera.git $BASE_PATH/programming-assignments-coursera
 $ cd $BASE_PATH/programming-assignments-coursera
+```
 
-# Lets see how FactoringGrader works
+Lets first look at how FactoringGrader works by getting an overview of directory.
+```sh
 $ cd custom-graders/FactoringGrader/GraderFiles
+$ ls
+```
 
-# Go through the files in the directory to get an overview.
+The directory contains helper code to grade an assignment, an executable file which is the entry poin of the grader and a Dockerfile used to generate the Docker image.
 
-# Creating a docker image
+#### What is Docker?
+- Efficiently encapsulates applications and the required infrastructure (Linux OS, Apache web server, mySQL)
+- Used to package and distribute applications
+- Packaged Docker image can be run on any host along with the packaged infrastructure
+- To read about docker and setting up docker for your machine, visit ....
 
-# To read about docker and setting up docker for your machine, visit ....
+Instructors provide their graders encapsulated in docker images which Coursera runs in a secure and efficient manner.
 
 Before starting on docker images, lets get to know how Coursera communicates with the docker images:
 
-Question 1: Where will I find the learner's submission?
-When your docker image is run on our hosts, we supply the learner's submission as /shared/submission/$fileName of that host and make it accessible to your code. $fileName is something you configure yourselves and irrespective of what learner's upload, their file will be renamed to your given file name.
+###Question 1: How will the learner submission be supplied to my code?
+When the docker image is run on Coursera's hosts, learner's submission is copied to /shared/submission/$fileName and made accessible to the docker code. $fileName is something that is configurable by instructors.
 
-Question 2: How will I convey grades and feedback to Coursera?
-We read stdout and expect it to be a JSON object containing 'isCorrect' and 'feedback'. Example:
+###Question 2: How will the docker graders convey grades and feedback to Coursera?
+Coursera will read everything on stdout and expect it to be a JSON object containing 'isCorrect' and 'feedback'. Example:
 {
     "isCorrect": false,
     "feedback": "You failed"
 }
 
-isCorrect: Its the boolean status signifying whether the learner's submission was marked as correct or incorrect.
-feedback: This is the text feedback that will be made visible to the learner.
+- isCorrect: Signifies if the learner passed.
+- feedback: Text feedback provided to the learner.
 
-# Build a docker image using the Dockerfile.
+### Building a docker image.
+```sh
 $ docker build -t factoring_grader.v1.1 .
-
+```
 Output :
+```sh
 Sending build context to Docker daemon 832.4 MB
 Sending build context to Docker daemon
 Step 0 : FROM ubuntu:latest
 .....
 .....
 Successfully built 15c3a282b939
+```
 
-
-# Run the docker image locally.
-export $CustomGraderPath = $BASE_PATH/programming-assignments-coursera/custom-graders
-docker run --user 1000 --net none -v $CustomGraderPath/FactoringGrader/sampleSubmission/:/shared/submission -t factoring_grader_v1.1
+### Test your docker grader locally with a sample submission.
+```sh
+$ export $CustomGraderPath = $BASE_PATH/programming-assignments-coursera/custom-graders
+$ docker run --user 1000 --net none -v $CustomGraderPath/FactoringGrader/sampleSubmission/:/shared/submission -t factoring_grader_v1.1
+```
 
 Output:
+```sh
 {"isCorrect":true,"feedback":"Congrats! All test cases passed!"}
+```
 
+### Package the docker image into a tar.
+```sh
+$ docker save factoring_grader.v1.1 > factoring_grader.v1.1.tar
+```
+##### Test your grader Coursera sandbox. Refer to the programming assignments documentation for more details.
 
-# Save the docker image locally.
-docker save factoring_grader.v1.1 > factoring_grader.v1.1.tar
-
-# Test this docker image on Coursera sandbox. Refer to the programming assignments documentation for more details.
-
-Important: One of the most common issues with docker files not working on our platform is due to inappropriate permissions.
-Our infrastructure executes your docker images as non-root users and its important to provide appropriate permissions to files/directories you will be reading/writing/executing.
+#### Common bugs/issues:
+- One of the most common issues with docker files not working on Coursera's platform is due to setting up inappropriate permissions in the Dockerfile. Coursera's infrastructure executes your docker images as non-root users for security restricting network access and its important to provide appropriate permissions to files/directories that will be read/written/executed.
