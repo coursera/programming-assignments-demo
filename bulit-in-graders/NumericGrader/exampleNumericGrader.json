@@ -1,0 +1,29 @@
+{
+  "possibleResponses": [
+    {
+      "answers": [
+        {
+          "min": 1,
+          "max": 100,
+          "includeMin": true,
+          "includeMax": true
+        },
+        {
+          "min": 400,
+          "max": 450,
+          "includeMin": false,
+          "includeMax": true
+        },
+        {
+          "min": 1000,
+          "max": 1200,
+          "includeMin": true,
+          "includeMax": false
+        }
+      ],
+      "isCorrect": true,
+      "feedback": "Correct!"
+    }
+  ],
+  "defaultIncorrectFeedback": "Incorrect! Please try again!"
+}

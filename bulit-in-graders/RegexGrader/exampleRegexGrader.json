@@ -1,0 +1,16 @@
+{
+  "possibleAnswers": [
+    {
+      "pattern": {
+        "typeName": "regex",
+        "pattern": {
+          "regexString": "b[aeiou]+t",
+          "flags": {}
+        }
+      },
+      "feedback": "Good job! Your input matches the regex",
+      "isCorrect": true
+    }
+  ],
+  "defaultIncorrectFeedback": "Incorrect submission!"
+}
