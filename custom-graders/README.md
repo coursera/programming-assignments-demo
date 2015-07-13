@@ -10,13 +10,13 @@ $ cd custom-graders/FactoringGrader/GraderFiles
 $ ls
 ```
 
-The directory contains helper code (Grader.java, solution.txt, testCases.txt) to grade an assignment, an executable file (executeGrader.sh) which is the entry poin of the grader and a Dockerfile used to generate the Docker image.
+The directory contains helper code (Grader.java, solution.txt, testCases.txt) to grade an assignment, an executable file (executeGrader.sh) which is the entry point of the grader and a Dockerfile used to generate the Docker image.
 
 #### What is Docker?
 - Efficiently encapsulates applications and the required infrastructure (Linux OS, Apache web server, mySQL)
 - Used to package and distribute applications
 - Packaged Docker image can be run on any host along with the packaged infrastructure
-- To read about docker and setting up docker for your machine, visit ....
+- To get started, visit https://docs.docker.com/installation/ubuntulinux/ 
 
 Instructors provide their graders encapsulated in docker images which Coursera runs in a secure and efficient manner.
 
@@ -66,7 +66,7 @@ $ docker save factoring_grader.v1.1 > factoring_grader.v1.1.tar
 ```
 
 ### Next Steps
-##### - Test your grader Coursera sandbox. Refer to the programming assignments documentation for more details.
+##### - Test your grader in Coursera's grading sandbox. Refer to the programming assignments documentation for more details.
 ##### - After testing graders thoroughly, graders can be linked to programming assignments in the course.
 
 #### Common bugs/issues:
