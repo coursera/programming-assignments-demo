@@ -65,10 +65,15 @@ Output:
 $ docker save factoring_grader.v1.1 > factoring_grader.v1.1.tar
 ```
 
-### Next Steps
-##### - Test your grader in Coursera's grading sandbox. Refer to the programming assignments documentation for more details.
-##### - After testing graders thoroughly, graders can be linked to programming assignments in the course.
+### Test your grader in Coursera's production environment.
+###### Upload the docker grader image to the programming assignment using authoring tools
+###### Navigate to the learner side of the programming assignment
+###### Submit using sample solutions
+###### Get the grader run IDs exposed in the learner UI
+*This information is just exposed to the course instructor*
+###### Use these grader run IDs as an input to this [tool](http://52.2.120.167/) to read stdout and stderr output by the docker grader
+*Contact programming@coursera.org to get access credentials for the tool.*
 
 #### Common bugs/issues:
-- One of the most common issues with docker files not working on Coursera's platform is due to setting up inappropriate permissions in the Dockerfile. Coursera's infrastructure executes your docker images as non-root users for security restricting network access and its important to provide appropriate permissions to files/directories that will be read/written/executed.
-- JSON output doesn't exactly match the specified format.
+- One of the most common issues with docker files not working on Coursera's platform is due to setting up inappropriate permissions in the Dockerfile. Coursera's infrastructure executes docker images as non-root users without any network access for security reasons and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container.
+- JSON output doesn't exactly match the specified format which causes Grader failures. The docker grader should only write the JSON object specified above to stdout and nothing else. 
