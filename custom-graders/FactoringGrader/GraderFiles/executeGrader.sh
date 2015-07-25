@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Switch to the grader directory
+cd grader
+
 # Compile the learner's program in the current directory.
 javac -d . /shared/submission/Factoring.java
 
