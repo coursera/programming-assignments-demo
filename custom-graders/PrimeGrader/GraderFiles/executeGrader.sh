@@ -28,4 +28,4 @@ fi
 javac Grader.java
 
 # Use Grader.java to compare learnerOutput.txt and solution.txt
-java Grader solution.txt learner.txt
+java Grader solution.txt learnerOutput.txt

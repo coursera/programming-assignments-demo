@@ -14,6 +14,7 @@ public class Grader {
 		int numTestCasesFailed = 0;
 		String feedback;
 		boolean isCorrect = false;
+		System.err.println("cwd: " + System.getProperty("user.dir"));
 		try{
 			BufferedReader assignmentSolution = new BufferedReader(new FileReader(args[0]));
 			BufferedReader learnerSolution = new BufferedReader(new FileReader(args[1]));
@@ -42,6 +43,9 @@ public class Grader {
 			learnerSolution.close();
 
 		} catch(IOException io) {
+			System.err.println("Got an exception!");
+			System.err.println(io.getMessage());
+			io.printStackTrace(System.err);
 			feedback = io.getMessage();
 		}
 
