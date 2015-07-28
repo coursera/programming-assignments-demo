@@ -27,10 +27,7 @@ When the docker image is run on Coursera's hosts, learner's submission is copied
 
 ###Question 2: How will the docker graders convey grades and feedback to Coursera?
 Coursera will read everything on stdout and expect it to be a JSON object containing 'isCorrect' and 'feedback'. Example:
-{
-    "isCorrect": false,
-    "feedback": "You failed"
-}
+{"isCorrect": false, "feedback": "You failed"}
 
 - isCorrect: Signifies if the learner passed.
 - feedback: Text feedback provided to the learner.
@@ -59,6 +56,9 @@ Output:
 ```sh
 {"isCorrect": true,"feedback": "Congrats! All test cases passed!"}
 ```
+
+### Test graders locally using 'courseraprogramming'
+Testing in Coursera's production environment is quite different from testing the graders locally. 'courseraprogramming' is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). It can be used to test the graders locally in an environment that is somewhat similar to Coursera's production environment. Follow instructions [here](https://github.com/coursera/courseraprogramming) to get started.
 
 ### Package the docker image into a tar.
 ```sh
