@@ -15,4 +15,4 @@ This grader expects a string from the learner as a submission, and grades/provid
 
 #####Examples of each type of grader can be found in the sub-folders of this directory.
 
-To learn more about built-in graders, please review [this] (https://partner.coursera.help/hc/en-us/articles/205314475#header_2) section of Coursera's partner documentation.
+Built-in graders can be directly built using our authoring interface. To learn more about built-in graders, please review [this] (https://partner.coursera.help/hc/en-us/articles/205314475#header_2) section of Coursera's partner documentation.
