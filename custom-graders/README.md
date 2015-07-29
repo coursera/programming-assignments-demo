@@ -77,3 +77,4 @@ $ docker save factoring_grader.v1.1 > factoring_grader.v1.1.tar
 #### Common bugs/issues:
 - One of the most common issues with docker files not working on Coursera's platform is due to setting up inappropriate permissions in the Dockerfile. Coursera's infrastructure executes docker images as non-root users without any network access for security reasons and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container.
 - JSON output doesn't exactly match the specified format which causes Grader failures. The docker grader should only write the JSON object specified above to stdout and nothing else. 
+- Use of environment variables. While running the grader code on our machines, we strip down most of the environment variables. Hence at runtime, its not to safe to rely on environment variables that you set in your dockerfile.
