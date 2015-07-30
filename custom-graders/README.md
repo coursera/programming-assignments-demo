@@ -16,7 +16,7 @@ The directory contains helper code (Grader.java, solution.txt, testCases.txt) to
 - Efficiently encapsulates applications and the required infrastructure (Linux OS, Apache web server, mySQL)
 - Used to package and distribute applications
 - Packaged Docker image can be run on any host along with the packaged infrastructure
-- To get started, visit https://docs.docker.com/installation/ubuntulinux/ 
+- To get started, visit https://docs.docker.com/installation/
 
 Instructors provide their graders encapsulated in docker images which Coursera runs in a secure and efficient manner.
 
