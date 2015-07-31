@@ -49,7 +49,7 @@ Successfully built 15c3a282b939
 ### Test your docker grader locally with a sample submission.
 ```sh
 $ export CustomGraderPath = $BASE_PATH/programming-assignments-demo/custom-graders
-$ docker run --user 1000 --net none -v $CustomGraderPath/FactoringGrader/sampleSubmission/:/shared/submission -t factoring_grader_v1.1
+$ docker run --user 1000 --net none -v $CustomGraderPath/FactoringGrader/SampleSubmission/:/shared/submission -t factoring_grader.v1.1
 ```
 
 Output:
