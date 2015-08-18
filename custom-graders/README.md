@@ -66,12 +66,13 @@ $ docker save factoring_grader.v1.1 > factoring_grader.v1.1.tar
 ```
 
 ### Test your grader in Coursera's production environment.
-###### Upload the docker grader image to the programming assignment using authoring tools
-###### Navigate to the learner side of the programming assignment
-###### Submit using sample solutions
-###### Get the grader run IDs exposed in the learner UI
+###### - Upload the docker grader image via Coursera's authoring tools
+###### - Review and Publish the new programming assignment
+###### - Click on 'View as Learner' to interact with your Course as a learner
+###### - Navigate to the programming assignment and make test submissions
+###### - For debugging, copy runId exposed in the submission history
 *This information is just exposed to the course instructor*
-###### Use these grader run IDs as an input to this [tool](http://52.2.120.167/) to read stdout and stderr output by the docker grader
+###### Use these runIDs as an input to this [tool](http://52.2.120.167/) to read stdout and stderr output by the docker grader
 *Contact programming@coursera.org to get access credentials for the tool.*
 
 #### Common bugs/issues:
