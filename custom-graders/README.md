@@ -1,16 +1,27 @@
-### Download the git repository locally
+### Download the grader source code locally
 ```sh
 $ git clone https://github.com/coursera/programming-assignments-demo.git $BASE_PATH/programming-assignments-demo
 $ cd $BASE_PATH/programming-assignments-demo
 ```
 
-Lets take FactoringGrader as an example. Go through the files in the directory to get an overview.
+We'll start by exploring the custom grader associated with our [demo course](https://www.coursera.org/learn/pa-on-demand).
+
+As you might've seen in the demo course, the programming assignment has two parts expecting learners to upload java programs for :
+1. Factorizing a number
+2. Finding if a number is prime
+
+We use a single docker grader to grade both of these parts. You can view the source code of the demo grader as shown below:
 ```sh
-$ cd custom-graders/FactoringGrader/GraderFiles
+$ cd custom-graders/DemoAssignmentGrader/GraderFiles
 $ ls
 ```
 
-The directory contains helper code (Grader.java, solution.txt, testCases.txt) to grade an assignment, an executable file (executeGrader.sh) which is the entry point of the grader and a Dockerfile used to generate the Docker image.
+Here are the different files contained in this directory:
+1. FactoringGrader/*: Contains solution and test cases for Part 1 : Factorizing a number
+2. PrimeGrader/*: Contains solution and test cases for Part 2 : Finding if a number is prime
+3. executeGrader.sh: Bash script which handles the overall grading workflow.
+4. Grader.java: File to compare output produced by the learner's submission with the solutions.
+5. Dockerfile: **Instructors provide their graders encapsulated in docker images which Coursera runs in a secure and efficient manner.** Dockerfile is a text document containing sequential commands to assemble the docker grader image.
 
 #### What is Docker?
 - Efficiently encapsulates applications and the required infrastructure (Linux OS, Apache web server, mySQL)
@@ -18,23 +29,38 @@ The directory contains helper code (Grader.java, solution.txt, testCases.txt) to
 - Packaged Docker image can be run on any host along with the packaged infrastructure
 - To get started, visit https://docs.docker.com/installation/
 
-Instructors provide their graders encapsulated in docker images which Coursera runs in a secure and efficient manner.
 
-Before starting on docker images, lets get to know how Coursera communicates with the docker images:
+### Question 1: Where can the grader find learner's submission?
+Graders will be able to find learner's submission at **/shared/submission/$fileName**.
+*Instructors can customize the file name via authoring tools for ease of access.*
 
-###Question 1: How will the learner submission be supplied to my code?
-When the docker image is run on Coursera's hosts, learner's submission is copied to /shared/submission/$fileName and made accessible to the docker code. $fileName is something that is configurable by instructors.
+### Question 2: How to output grades and feedback?
+Coursera's APIs will rely on the *stdout* and expect it to be a JSON object containing 'fractionalScore' and 'feedback'. Example:
+```sh
+{"fractionalScore": 0.2, "feedback": "You failed"}
+```
 
-###Question 2: How will the docker graders convey grades and feedback to Coursera?
-Coursera will read everything on stdout and expect it to be a JSON object containing 'isCorrect' and 'feedback'. Example:
-{"isCorrect": false, "feedback": "You failed"}
+- **fractionalScore**: Float value signifying the fraction of score obtained by the submission. Must be betweer 0.0 to 1.0
+- **feedback**: Text feedback provided to the learner.
 
-- isCorrect: Signifies if the learner passed.
-- feedback: Text feedback provided to the learner.
+**Important: Graders shouldn't write anything other than a single JSON object with the above specification to stdout and also make sure learners are unable to write anything to stdout.**
+
+### Question 3: Can a single grader be used to grade multiple programming assignment parts?
+Managing multiple docker images for a single course could be hard due to several reasons. Coursera recommends instructors to maintain a single grader per course. During runtime, graders can easily know which part to grade based on the unique PartId supplied as a command line parameter. Please take a look at *executeGrader.sh* in the source code for an example. 
+
+### Question 4: Can I set any environment variables in my grader?
+Use of environment variables as part of the grader is not prohibited but we do **prohibit** setting environment variables as part of the **Dockerfile** for security purposes. Any environment variables set in **Dockerfile** will be cleaned during runtime. Please take a look at *executeGrader.sh* to see an example of setting environment variables outsite Dockerfile.
+
+### Question 5: Will the graders be run with root access?
+One of the most common issues while working with docker graders on Coursera is due to setting up inappropriate permissions in the Dockerfile. 
+
+**Coursera's infrastructure executes docker images as non-root users without any network access for security reasons** and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container. Please take a look at the example **Dockerfile** to see how to setup appropriate permissions.
 
 ### Building a docker image.
+***After setting up docker, you can begin working on your grader source code keeping the above FAQs in mind. After you have written your grader source code based on the recommendations provided, you'll have to package it using Docker using a *Dockerfile*.***
+
 ```sh
-$ docker build -t factoring_grader.v1.1 .
+$ docker build -t demo_grader.v1.1 .
 ```
 Output :
 ```sh
@@ -43,39 +69,37 @@ Sending build context to Docker daemon
 Step 0 : FROM ubuntu:latest
 .....
 .....
-Successfully built 15c3a282b939
+Successfully built xxxxxxxxxx
 ```
 
-### Test your docker grader locally with a sample submission.
+### Testing graders locally
+After building your docker image, you'll want to test your graders locally before uploading it into production.
+Docker graders are augmented in certain ways when they are run on Coursera's production environment. Instructors can simulate some of this production behavior locally while testing using our command line tool [courseraprogramming]((https://github.com/coursera/courseraprogramming).
+
+*courseraprogramming* is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). Follow instructions [here] to get started.
+
+Here is a simple command to test a grader locally:
 ```sh
-$ export CustomGraderPath=$BASE_PATH/programming-assignments-demo/custom-graders
-$ docker run --user 1000 --net none -v $CustomGraderPath/FactoringGrader/SampleSubmission/:/shared/submission -t factoring_grader.v1.1
+$ export CustomGraderPath=$BASE_PATH/programming-assignments-demo/custom-graders/
+$ courseraprogramming grade local factoring_grader.v1.1 $CustomGraderPath/DemoAssignmentGrader/SampleSubmission/FactoringSampleSubmission
 ```
 
-Output:
+**After your docker grader passes all tests in *courseraprogramming*, its time to upload your docker grader via our authoring tools.**
+#### 1. Package the docker image into a tar
 ```sh
-{"isCorrect": true,"feedback": "Congrats! All test cases passed!"}
+$ docker save demo_grader.v1.1 > demo_grader.v1.1.tar
 ```
 
-### Test graders locally using 'courseraprogramming'
-Testing in Coursera's production environment is quite different from testing the graders locally. 'courseraprogramming' is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). It can be used to test the graders locally in an environment that is somewhat similar to Coursera's production environment. Follow instructions [here](https://github.com/coursera/courseraprogramming) to get started.
+#### 2. Upload the grader to production course
+- Navigate to the authoring side of your course
+- Create/Navigate to the programming assignment you want to work with
+- Add/Edit the programming assignment 'Custom Grader' part you want to work with
+- Click on Upload New Grader and select the .tar file created in the above step
+- Wait for the grader to upload and process successfully (*Don't refresh the page during the upload*)
+- Refresh the page and make sure you see the correct grader file associated with the programming assignment part
+- Review and Publish the new programming assignment
 
-### Package the docker image into a tar.
-```sh
-$ docker save factoring_grader.v1.1 > factoring_grader.v1.1.tar
-```
-
-### Test your grader in Coursera's production environment.
-###### - Upload the docker grader image via Coursera's authoring tools
-###### - Review and Publish the new programming assignment
-###### - Click on 'View as Learner' to interact with your Course as a learner
-###### - Navigate to the programming assignment and make test submissions
-###### - For debugging, copy runId exposed in the submission history
-*This information is just exposed to the course instructor*
-###### Use these runIDs as an input to this [tool](http://52.2.120.167/) to read stdout and stderr output by the docker grader
-*Contact programming@coursera.org to get access credentials for the tool.*
-
-#### Common bugs/issues:
-- One of the most common issues with docker files not working on Coursera's platform is due to setting up inappropriate permissions in the Dockerfile. Coursera's infrastructure executes docker images as non-root users without any network access for security reasons and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container.
-- JSON output doesn't exactly match the specified format which causes Grader failures. The docker grader should only write the JSON object specified above to stdout and nothing else. 
-- Use of environment variables as part of the grader is not prohibited (i.e. you can set them in your grader files) but we do limit the ability to set environment variables as part of the 'Dockerfile' for security purposes. Hence at runtime, the grader code will not be able to access any environment variables that have been set directly in the 'Dockerfile'.
+#### 3. Testing and debugging the new programming assignment
+- Click on 'View as Learner' on the top left of the authoring tools to navigate to Learner's view
+- Navigate to the assignment and make some test submissions. Make sure to cover all edge cases during this testing phase.
+- In case you experience any problems testing in the production environment that you didn't experience while testing locally, **Please Contact partner-support@coursera.org for more support**
