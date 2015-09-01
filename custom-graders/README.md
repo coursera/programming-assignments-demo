@@ -7,8 +7,8 @@ $ cd $BASE_PATH/programming-assignments-demo
 We'll start by exploring the custom grader associated with our [demo course](https://www.coursera.org/learn/pa-on-demand).
 
 As you might've seen in the demo course, the programming assignment has two parts expecting learners to upload java programs for :
-1. Factorizing a number
-2. Finding if a number is prime
+- Factorizing a number
+- Finding if a number is prime
 
 We use a single docker grader to grade both of these parts. You can view the source code of the demo grader as shown below:
 ```sh
@@ -17,11 +17,11 @@ $ ls
 ```
 
 Here are the different files contained in this directory:
-1. FactoringGrader/*: Contains solution and test cases for Part 1 : Factorizing a number
-2. PrimeGrader/*: Contains solution and test cases for Part 2 : Finding if a number is prime
-3. executeGrader.sh: Bash script which handles the overall grading workflow.
-4. Grader.java: File to compare output produced by the learner's submission with the solutions.
-5. Dockerfile: **Instructors provide their graders encapsulated in docker images which Coursera runs in a secure and efficient manner.** Dockerfile is a text document containing sequential commands to assemble the docker grader image.
+- FactoringGrader/*: Contains solution and test cases for Part 1 : Factorizing a number
+- PrimeGrader/*: Contains solution and test cases for Part 2 : Finding if a number is prime
+- executeGrader.sh: Bash script which handles the overall grading workflow.
+- Grader.java: File to compare output produced by the learner's submission with the solutions.
+- Dockerfile: **Instructors provide their graders encapsulated in docker images which Coursera runs in a secure and efficient manner.** Dockerfile is a text document containing sequential commands to assemble the docker grader image.
 
 #### What is Docker?
 - Efficiently encapsulates applications and the required infrastructure (Linux OS, Apache web server, mySQL)
@@ -74,14 +74,14 @@ Successfully built xxxxxxxxxx
 
 ### Testing graders locally
 After building your docker image, you'll want to test your graders locally before uploading it into production.
-Docker graders are augmented in certain ways when they are run on Coursera's production environment. Instructors can simulate some of this production behavior locally while testing using our command line tool [courseraprogramming]((https://github.com/coursera/courseraprogramming).
+Docker graders are augmented in certain ways when they are run on Coursera's production environment. Instructors can simulate some of this production behavior locally while testing using our command line tool [courseraprogramming](https://github.com/coursera/courseraprogramming).
 
-*courseraprogramming* is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). Follow instructions [here] to get started.
+*courseraprogramming* is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). Follow [instructions] (https://github.com/coursera/courseraprogramming) to get started.
 
 Here is a simple command to test a grader locally:
 ```sh
 $ export CustomGraderPath=$BASE_PATH/programming-assignments-demo/custom-graders/
-$ courseraprogramming grade local factoring_grader.v1.1 $CustomGraderPath/DemoAssignmentGrader/SampleSubmission/FactoringSampleSubmission
+$ courseraprogramming grade local demo_grader.v1.1 $CustomGraderPath/DemoAssignmentGrader/SampleSubmission/FactoringSampleSubmission
 ```
 
 **After your docker grader passes all tests in *courseraprogramming*, its time to upload your docker grader via our authoring tools.**
