@@ -31,3 +31,13 @@ RUN chmod a+rwx -R /grader/
 
 # Setup the command that will be invoked when your docker image is run.
 ENTRYPOINT ["./grader/executeGrader.sh"]
+
+# While running the graders in production, Coursera passes several command line arguments to the ENTRYPOINT command
+# in no particular order. For local testing, the below commands can be used in place of the above ENTRYPOINT command 
+# to simulate passing command line arguments to executeGrader.sh.
+# More details about these Coursera supplied command line parameters can be found in executeGrader.sh.
+
+# Command to simulate Factoring Grader:
+# ENTRYPOINT ["./grader/executeGrader.sh", "partId", "HxbKF"]
+# Command to simulate Prime Grader:
+# ENTRYPOINT ["./grader/executeGrader.sh", "partId", "ov8KA"] 
