@@ -8,6 +8,7 @@ POST
 www.coursera.org/api/onDemandProgrammingScriptSubmissions.v1
 
 Body:  
+```
 {  
 	/**  
 	 * unique ID to identify a particular programming assignment on our platform.  
@@ -62,9 +63,10 @@ Body:
 		... similarly for other parts if any  
 	}  
 }  
-  
-cUrl command:  
+```
 
+cUrl command:  
+```
 curl -X POST -H "Cache-Control: no-cache" -H "Content-Type: application/json" -d '{  
   "assignmentKey": $assignmentKey,  
   "submitterEmail": $learnerEmail,  
@@ -75,13 +77,13 @@ curl -X POST -H "Cache-Control: no-cache" -H "Content-Type: application/json" -d
     }  
   }  
 }' 'https://www.coursera.org/api/onDemandProgrammingScriptSubmissions.v1'  
-  
+```
 
 
 Returns:  
   
 HTTP Code: 200 (Ok)  
-  
+```  
 {  
 	"elements": [{  
 	  	"id": String,  
@@ -156,21 +158,24 @@ HTTP Code: 200 (Ok)
 	"paging": null,  
   	"linked": null  
 }  
-  
+```
   
 HTTP Code: 401 (Unauthorized) if the emailId or the ‘secret’ is invalid.  
+```
 {  
   "message": "Invalid email or token.",  
   "details": {  
     "learnerMessage": "Invalid email or token."  
   }  
 }  
-  
+```
 
 HTTP Code: 400 (Bad Request) if a ‘secret’ from a different assignment is used.  
+```
 {  
   "message": "Token is for a different assignment",  
   "details": {  
     "learnerMessage": "You used a token for $itemName in $courseName. Please use a token for the assignment you are submitting."  
   }  
 }  
+```
