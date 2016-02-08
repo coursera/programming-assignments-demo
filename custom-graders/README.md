@@ -40,8 +40,8 @@ Coursera's APIs will rely on the *stdout* and expect it to be a JSON object cont
 {"fractionalScore": 0.2, "feedback": "You failed"}
 ```
 
-- **fractionalScore**: Float value signifying the fraction of score obtained by the submission. Must be betweer 0.0 to 1.0
-- **feedback**: Text feedback provided to the learner.
+- **fractionalScore**: Float value signifying the fraction of score obtained by the submission. Must be betweer 0.0 to 1.0.
+- **feedback**: Text feedback provided to the learner. ***Note***: We require all graders to trim/truncate their feedback strings to be lesser than 32 KB.
 
 **Important: Graders shouldn't write anything other than a single JSON object with the above specification to stdout and also make sure learners are unable to write anything to stdout.**
 
