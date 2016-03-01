@@ -27,7 +27,7 @@ Here are the different files contained in this directory:
 - Efficiently encapsulates applications and the required infrastructure (Linux OS, Apache web server, mySQL)
 - Used to package and distribute applications
 - Packaged Docker image can be run on any host along with the packaged infrastructure
-- To get started, visit https://docs.docker.com/installation/
+- To get started, please download docker version 1.8 or earlier. visit https://docs.docker.com/v1.7/
 
 
 ### Question 1: Where can the grader find learner's submission?
@@ -104,4 +104,5 @@ $ docker save demo_grader.v1.1 > demo_grader.v1.1.tar
 #### 3. Testing and debugging the new programming assignment
 - Click on 'View as Learner' on the top left of the authoring tools to navigate to Learner's view
 - Navigate to the assignment and make some test submissions. Make sure to cover all edge cases during this testing phase.
+- An executorRunId should be visible within the submission history for each part that you submit. This is only visible to instructors and is not visible to learners. You can input this ID in our [debug tool](http://courseraprogramming.coursera.help/viewer/) to see what stdout/stderr logs were produced by your grader for that particular grader run. Please reach out to partner-support@coursera.org to get the password to access the tool.
 - In case you experience any problems testing in the production environment that you didn't experience while testing locally, **Please Contact partner-support@coursera.org for more support**
