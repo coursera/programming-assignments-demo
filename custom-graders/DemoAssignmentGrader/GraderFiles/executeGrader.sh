@@ -40,7 +40,7 @@ done
 if [ "$PARTID" == "$FACTORING_GRADER_PART_ID" ]; then
   GRADER_DIRECTORY=FactoringGrader
   SUBMISSION_CLASS=Factoring
-elif [ "$PARTID" == "PRIME_GRADER_PART_ID" ]; then
+elif [ "$PARTID" == "$PRIME_GRADER_PART_ID" ]; then
   GRADER_DIRECTORY=PrimeGrader
   SUBMISSION_CLASS=Prime
 else
