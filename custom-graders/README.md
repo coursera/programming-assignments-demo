@@ -59,7 +59,7 @@ One of the most common issues while working with docker graders on Coursera is d
 ### Building a docker image.
 ***After setting up docker, you can begin working on your grader source code keeping the above FAQs in mind. After you have written your grader source code based on the recommendations provided, you'll have to package it using Docker using a *Dockerfile*.***
 
-Before building your docker image for local testing, you need to update the demo grader's '[Dockerfile](https://github.com/coursera/programming-assignments-demo/blob/master/custom-graders/DemoAssignmentGrader/GraderFiles/Dockerfile)' according the instructions mentioned at the bottom of the Dockerfile itself.
+*Please Note: Before building your docker image for local testing, you need to update the demo grader's '[Dockerfile](https://github.com/coursera/programming-assignments-demo/blob/master/custom-graders/DemoAssignmentGrader/GraderFiles/Dockerfile)' according the instructions mentioned at the bottom of the Dockerfile itself.*
 
 ```sh
 $ docker build -t demo_grader.v1.1 .
