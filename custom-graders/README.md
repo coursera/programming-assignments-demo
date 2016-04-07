@@ -27,7 +27,7 @@ Here are the different files contained in this directory:
 - Efficiently encapsulates applications and the required infrastructure (Linux OS, Apache web server, mySQL)
 - Used to package and distribute applications
 - Packaged Docker image can be run on any host along with the packaged infrastructure
-- To get started, please download docker version 1.8 or earlier. visit https://docs.docker.com/v1.7/
+- To get started, please download docker version 1.9.1 or earlier. visit https://docs.docker.com/v1.7/
 
 
 ### Question 1: Where can the grader find learner's submission?
