@@ -80,10 +80,10 @@ Docker graders are augmented in certain ways when they are run on Coursera's pro
 
 *courseraprogramming* is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). Follow [instructions] (https://github.com/coursera/courseraprogramming) to get started.
 
-Here is a simple command to test a grader locally:
+Here is a simple command to test a grader locally (Note that you have to append partId HxbKF or ov8KA):
 ```sh
 $ export CustomGraderPath=$BASE_PATH/programming-assignments-demo/custom-graders/
-$ courseraprogramming grade local demo_grader.v1.1 $CustomGraderPath/DemoAssignmentGrader/SampleSubmission/FactoringSampleSubmission
+$ courseraprogramming grade local demo_grader.v1.1 $CustomGraderPath/DemoAssignmentGrader/SampleSubmission/FactoringSampleSubmission partId HxbKF
 ```
 
 **After your docker grader passes all tests in *courseraprogramming*, its time to upload your docker grader via our authoring tools.**
