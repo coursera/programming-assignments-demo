@@ -82,7 +82,7 @@ curl -X POST -H "Cache-Control: no-cache" -H "Content-Type: application/json" -d
 
 Returns:  
   
-HTTP Code: 200 (Ok)  
+HTTP Code: 201 (Created)  
 ```  
 {  
 	"elements": [{  
