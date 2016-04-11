@@ -54,6 +54,9 @@ Use of environment variables as part of the grader is not prohibited but we do *
 ### Question 5: Will the graders be run with root access?
 One of the most common issues while working with docker graders on Coursera is due to setting up inappropriate permissions in the Dockerfile. 
 
+### Question 6: What are the default resources and timeouts that are configured for a grader? Can I customize them?
+We provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform. Once we initiate grading via the provided docker graders, we have set a default timeout of 20 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. We also allow instructors to customize resources and timeouts for their graders. Please see below section on *courseraprogramming* for more information. 
+
 **Coursera's infrastructure executes docker images as non-root users without any network access for security reasons** and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container. Please take a look at the example **Dockerfile** to see how to setup appropriate permissions.
 
 ### Building a docker image.
@@ -74,11 +77,16 @@ Step 0 : FROM ubuntu:latest
 Successfully built xxxxxxxxxx
 ```
 
+### Introducing 'courseraprogramming'
+*courseraprogramming* is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). *courseraprogramming* is mostly meant to provide tools to simulate the production environment locally to test docker graders effectively.
+
+Some of the advanced features will also let you automate grader updates and customize grading timeouts and resources.
+
+Please follow [instructions] (https://github.com/coursera/courseraprogramming) to install the toolkit before moving on to the next step.
+
 ### Testing graders locally
 After building your docker image, you'll want to test your graders locally before uploading it into production.
 Docker graders are augmented in certain ways when they are run on Coursera's production environment. Instructors can simulate some of this production behavior locally while testing using our command line tool [courseraprogramming](https://github.com/coursera/courseraprogramming).
-
-*courseraprogramming* is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). Follow [instructions] (https://github.com/coursera/courseraprogramming) to get started.
 
 Here is a simple command to test a grader locally (Note that you have to append partId HxbKF or ov8KA):
 ```sh
@@ -87,6 +95,7 @@ $ courseraprogramming grade local demo_grader.v1.1 $CustomGraderPath/DemoAssignm
 ```
 
 **After your docker grader passes all tests in *courseraprogramming*, its time to upload your docker grader via our authoring tools.**
+
 #### 1. Package the docker image into a tar
 ```sh
 $ docker save demo_grader.v1.1 > demo_grader.v1.1.tar
