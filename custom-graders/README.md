@@ -110,7 +110,7 @@ $ docker save demo_grader.v1.1 > demo_grader.v1.1.tar
 - Refresh the page and make sure you see the correct grader file associated with the programming assignment part
 - Review and Publish the new programming assignment
 
-*Important Note*: Once a new grader is published, it takes an additional 30-35 minutes for our systems to cache the grader due to which it might take significantly more time to finish the first grading that happens on a new grader. Subsequent grading overhead would be as low as 5 seconds.
+**Important Note**: Once a new grader is published, it takes an additional 30-35 minutes for our systems to cache the grader due to which it might take significantly more time to finish the first grading that happens on a new grader. Subsequent grading overhead would be as low as 5 seconds.
 
 #### 3. Testing and debugging the new programming assignment
 - Click on 'View as Learner' on the top left of the authoring tools to navigate to Learner's view
