@@ -112,6 +112,8 @@ $ docker save demo_grader.v1.1 > demo_grader.v1.1.tar
 
 **Important Note**: Once a new grader is published, it takes an additional 30-35 minutes for our systems to cache the grader due to which it might take significantly more time to finish the first grading that happens on a new grader. Subsequent grading overhead would be as low as 5 seconds.
 
+In case 'Grading Fails' the first time on a new grader, it is most likely due to a timeout given the additional time it took for caching the grader. Please try resubmitting to resolve the 'Timeout' issue.
+
 #### 3. Testing and debugging the new programming assignment
 - Click on 'View as Learner' on the top left of the authoring tools to navigate to Learner's view
 - Navigate to the assignment and make some test submissions. Make sure to cover all edge cases during this testing phase.
