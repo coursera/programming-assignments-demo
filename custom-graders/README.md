@@ -41,7 +41,7 @@ Coursera's APIs will rely on the *stdout* and expect it to be a JSON object cont
 ```
 
 - **fractionalScore**: Float value signifying the fraction of score obtained by the submission. Must be betweer 0.0 to 1.0.
-- **feedback**: Text feedback provided to the learner. ***Note***: We require all graders to trim/truncate their feedback strings to be less than 64 KB.
+- **feedback**: Text feedback provided to the learner. This feedback is rendered as plain text and also allows to input escaped newline characters which are rendered as newlines when shown to the learners. ***Note***: We'll trim/truncate grader feedback string to 64 KB before displaying it to learners.
 
 **Important: Graders shouldn't write anything other than a single JSON object with the above specification to stdout and also make sure learners are unable to write anything to stdout.**
 
