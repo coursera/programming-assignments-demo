@@ -22,13 +22,10 @@ while [[ $# > 1 ]]
         PARTID="$2"
         shift
         ;;
-      userId)
-        # Unique integer Id of the learner that made this submission.
-        USERID="$2"
-        shift
-        ;;
       filename)
-        # Original filename as uploaded by the learner before it was renamed to the suggested filename.
+        # Original filename as uploaded by the learner.
+        # Note: Coursera 'always' renames the submission to the suggested filename as specified within the authoring UI.
+        # This is an optional parameter and most of the graders don't end up using it.
         ORIGINAL_FILENAME="$2"
         shift
         ;;
