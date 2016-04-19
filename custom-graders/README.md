@@ -27,7 +27,7 @@ Here are the different files contained in this directory:
 - Efficiently encapsulates applications and the required infrastructure (Linux OS, Apache web server, mySQL)
 - Used to package and distribute applications
 - Packaged Docker image can be run on any host along with the packaged infrastructure
-- To get started, please download docker version 1.9.1 or earlier. visit https://docs.docker.com/v1.7/
+- To get started, please follow the installation directions for your platform at: https://docs.docker.com/engine/installation/
 
 
 ### Question 1: Where can the grader find learner's submission?
@@ -46,17 +46,17 @@ Coursera's APIs will rely on the *stdout* and expect it to be a JSON object cont
 **Important: Graders shouldn't write anything other than a single JSON object with the above specification to stdout and also make sure learners are unable to write anything to stdout.**
 
 ### Question 3: Can a single grader be used to grade multiple programming assignment parts?
-Managing multiple docker images for a single course could be hard due to several reasons. Coursera recommends instructors to maintain a single grader per course. During runtime, graders can easily know which part to grade based on the unique PartId supplied as a command line parameter. Please take a look at *executeGrader.sh* in the source code for an example. 
+Managing multiple docker images for a single course could be hard due to several reasons. Coursera recommends instructors to maintain a single grader per course. During runtime, graders can easily know which part to grade based on the unique PartId supplied as a command line parameter. Please take a look at *executeGrader.sh* in the source code for an example.
 
 ### Question 4: Can I set any environment variables in my grader?
 Use of environment variables as part of the grader is not prohibited but we do **prohibit** setting environment variables as part of the **Dockerfile** for security purposes. Any environment variables set in **Dockerfile** will be cleaned during runtime. Please take a look at *executeGrader.sh* to see an example of setting environment variables outsite Dockerfile.
 
 ### Question 5: Will the graders be run with root access?
-One of the most common issues while working with docker graders on Coursera is due to setting up inappropriate permissions in the Dockerfile. 
+One of the most common issues while working with docker graders on Coursera is due to setting up inappropriate permissions in the Dockerfile.
 **Coursera's infrastructure executes docker images as non-root users without any network access for security reasons** and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container. Please take a look at the example **Dockerfile** to see how to setup appropriate permissions.
 
 ### Question 6: What are the default resources and timeouts that are configured for a grader? Can I customize them?
-We provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform. Once we initiate grading via the provided docker graders, we have set a default timeout of 20 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. We also allow instructors to customize resources and timeouts for their graders. Please see below section on *courseraprogramming* for more information. 
+We provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform. Once we initiate grading via the provided docker graders, we have set a default timeout of 20 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. We also allow instructors to customize resources and timeouts for their graders. Please see below section on *courseraprogramming* for more information.
 
 ### Building a docker image.
 ***After setting up docker, you can begin working on your grader source code keeping the above FAQs in mind. After you have written your grader source code based on the recommendations provided, you'll have to package it using Docker using a *Dockerfile*.***
@@ -93,7 +93,21 @@ $ export CustomGraderPath=$BASE_PATH/programming-assignments-demo/custom-graders
 $ courseraprogramming grade local demo_grader.v1.1 $CustomGraderPath/DemoAssignmentGrader/SampleSubmission/FactoringSampleSubmission partId HxbKF
 ```
 
-**After your docker grader passes all tests in *courseraprogramming*, its time to upload your docker grader via our authoring tools.**
+**After your docker grader passes all tests in *courseraprogramming*, it's time to upload your docker grader.**
+
+Note: it is important to use your course ID (a base64 UUID) and not your course slug (the short name used in the URLs of the course).
+
+```sh
+$ courseraprogramming upload demo_grader.v1.1 my_Course_1D itemId123 partId456
+```
+
+To publish the newly uploaded grader, you can either: (1) navigate to the web-based authoring tools and click "Publish", or alternatively (2) execute:
+
+```sh
+$ courseraprogramming publish my_course_1D itemId123
+```
+
+**Alternatively, you can upload your docker grader manually using our web-based authoring tools.**
 
 #### 1. Package the docker image into a tar
 ```sh
@@ -109,7 +123,7 @@ $ docker save demo_grader.v1.1 > demo_grader.v1.1.tar
 - Refresh the page and make sure you see the correct grader file associated with the programming assignment part
 - Review and Publish the new programming assignment
 
-**Important Note**: Once a new grader is published, it takes an additional 30-35 minutes for our systems to cache the grader due to which it might take significantly more time to finish the first grading that happens on a new grader. Subsequent grading overhead would be as low as 5 seconds.
+**Important Note**: Once a new grader is published, it takes an additional 30-35 minutes for our systems to cache the grader due to which it might take significantly more time to finish the first grading that happens on a new grader. Subsequent grading overhead is as low as 5 seconds.
 
 In case 'Grading Fails' the first time on a new grader, it is most likely due to a timeout given the additional time it took for caching the grader. Please try resubmitting to resolve the 'Timeout' issue.
 
