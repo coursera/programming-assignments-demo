@@ -101,11 +101,13 @@ Note: it is important to use your course ID (a base64 UUID) and not your course 
 $ courseraprogramming upload demo_grader.v1.1 my_Course_1D itemId123 partId456
 ```
 
-To publish the newly uploaded grader, you can either: (1) navigate to the web-based authoring tools and click "Publish", or alternatively (2) execute:
+To publish the newly uploaded grader, you can either: (1) **recommended** navigate to the web-based authoring tools and click "Publish", or alternatively (advanced instructors only) (2) execute:
 
 ```sh
 $ courseraprogramming publish my_course_1D itemId123
 ```
+
+Beware, using `courseraprogramming publish` will publish _all_ edits made to a particular item. Use with caution, and only when you know the course content (e.g. programming assignment description) will not be modified concurrently.
 
 **Alternatively, you can upload your docker grader manually using our web-based authoring tools.**
 
