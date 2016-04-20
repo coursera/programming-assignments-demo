@@ -122,7 +122,7 @@ $ docker save demo_grader.v1.1 > demo_grader.v1.1.tar
 - Add/Edit the programming assignment 'Custom Grader' part you want to work with
 - Click on Upload New Grader and select the .tar file created in the above step
 - Wait for the grader to upload and process successfully (*Don't refresh the page during the upload*)
-- Refresh the page and make sure you see the correct grader file associated with the programming assignment part
+- Refresh the page and make sure you see the correct grader file associated with the programming assignment part in the dropdown list of all uploaded graders. *Note* You can also delete old unused graders by deleting the corresponding grader asset within the 'Assets' tab in the course authoring interface. 
 - Review and Publish the new programming assignment
 
 **Important Note**: Once a new grader is published, it takes an additional 30-35 minutes for our systems to cache the grader due to which it might take significantly more time to finish the first grading that happens on a new grader. Subsequent grading overhead is as low as 5 seconds.
