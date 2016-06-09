@@ -1,4 +1,4 @@
-# Fetch latest ubuntu docker image
+# Fetch ubuntu 14.04 LTS docker image
 FROM ubuntu:14.04
 
 # Install Java on your ubuntu image.
