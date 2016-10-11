@@ -56,7 +56,9 @@ One of the most common issues while working with docker graders on Coursera is d
 **Coursera's infrastructure executes docker images as non-root users without any network access for security reasons** and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container. Please take a look at the example **Dockerfile** to see how to setup appropriate permissions.
 
 ### Question 6: What are the default resources and timeouts that are configured for a grader? Can I customize them?
-We provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform. Once we initiate grading via the provided docker graders, we have set a default timeout of 20 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. We also allow instructors to customize resources and timeouts for their graders. Please see below section on *courseraprogramming* for more information.
+We expect the docker grader image to be lesser than 3 GB in size. Please contact Coursera if you are unable to compress your grader image below that size.
+
+When running the grader on a submission, we provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform by default. Once we initiate grading via the provided docker graders, we have set a default timeout of 20 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. These resources and timeouts are customizeable. Please see below section on *courseraprogramming* for more information on customizing resources.
 
 ### Building a docker image.
 ***After setting up docker, you can begin working on your grader source code keeping the above FAQs in mind. After you have written your grader source code based on the recommendations provided, you'll have to package it using Docker using a *Dockerfile*.***
