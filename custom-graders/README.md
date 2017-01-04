@@ -60,6 +60,9 @@ We expect the docker grader image to be lesser than 3 GB in size. Please contact
 
 When running the grader on a submission, we provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform by default. Once we initiate grading via the provided docker graders, we have set a default timeout of 20 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. These resources and timeouts are customizeable. Please see below section on *courseraprogramming* for more information on customizing resources.
 
+### Question 7: Are there any other example graders available?
+Here is a python grader used by one of our instructors in the discrete optimization course that might be helpful to look at: https://github.com/discreteoptimization/assignment.
+
 ### Building a docker image.
 ***After setting up docker, you can begin working on your grader source code keeping the above FAQs in mind. After you have written your grader source code based on the recommendations provided, you'll have to package it using Docker using a *Dockerfile*.***
 
