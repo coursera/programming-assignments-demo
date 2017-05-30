@@ -1,25 +1,14 @@
-# Configurable spreadsheet autograder #
+# Configurable spreadsheet autograder
 
-This 
+This dockerized autograder evaluates a learner-submitted spreadsheet with grader spreadsheet authored by an instructor. The basic procedure is as follows:
 
+    1) Open the learner and instructor spreadsheets. 
+    2) Copy grader formulas from the grader spreadsheet to the learner spreadsheet, adding sheets if absent.
+    3) Read the top-left cell from the `_score` sheet. This is the overall submission score.
+    4) Read values `_feedback` and format as an ASCII table. This is the feedback text that the learner will see.
 
-Procedure:
-    1) Check instructor spreadsheet (must include sheets named _score and _feedback)
-    2) Check learner spreadsheet (must include sheets with names matching all non-underscored sheets in instructor spreadsheet)
-    3) Append instructor sheets with underscore to learner spreadsheet, evaluate.
-    4) Get _feedback sheet value, format as table.
-    5) Get _score sheet value, verify is single value.
-    6) Return result
-
-Error messages:
-    If _score sheet missing, "Instructor file must have a sheet titled '_score'."
-    If _feedback sheet missing, "Instructor file must have a sheet titled '_feedback'."
-    If [submission] sheet missing, "Submission must include a sheet titled 'submission'"
-
-
-
-docker run -it -v `pwd`/grader/:/shared/input/grader/ -v `pwd`/submission/:/shared/input/submission/ coursera/grader/spreadsheet
-
-soffice --accept="socket,host=localhost,port=2002;urp;" --norestore --nologo --nodefault  --headless &
-
-http://pydoc.net/Python/unotools/0.3.0/unotools.component.calc/
+See example submission / grader spreadsheet pairs in the `examples` directory. To build and run locally using Docker, do:
+```
+./build.sh
+docker run -v `pwd`/examples/simple_matching:/shared
+```
