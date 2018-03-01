@@ -1,3 +1,5 @@
+# Creating a Custom Grader for Coursera
+
 ### Download the grader source code locally
 ```sh
 $ git clone https://github.com/coursera/programming-assignments-demo.git $BASE_PATH/programming-assignments-demo
@@ -56,9 +58,9 @@ One of the most common issues while working with docker graders on Coursera is d
 **Coursera's infrastructure executes docker images as non-root users without any network access for security reasons** and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container. Please take a look at the example **Dockerfile** to see how to setup appropriate permissions.
 
 ### Question 6: What are the default resources and timeouts that are configured for a grader? Can I customize them?
-We expect the docker grader image to be lesser than 3 GB in size. Please contact Coursera if you are unable to compress your grader image below that size.
+We expect the docker grader image and the learner submission to be less than 8 GB in size. Please contact Coursera if you are unable to compress your grader image below that size.
 
-When running the grader on a submission, we provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform by default. Once we initiate grading via the provided docker graders, we have set a default timeout of 20 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. These resources and timeouts are customizeable. Please see below section on *courseraprogramming* for more information on customizing resources.
+When running the grader on a submission, we provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform by default. Once we initiate grading via the provided docker graders, we have set a default timeout of 60 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. These resources and timeouts are customizeable. Please see below section on *courseraprogramming* for more information on customizing resources.
 
 ### Question 7: Are there any other example graders available?
 Here is a python grader used by one of our instructors in the discrete optimization course that might be helpful to look at: https://github.com/discreteoptimization/assignment.
@@ -80,8 +82,35 @@ Step 0 : FROM ubuntu:latest
 .....
 Successfully built xxxxxxxxxx
 ```
+##  March 2018 alert 
 
-### Introducing 'courseraprogramming'
+We are aware of issues with courseraprogramming tool. The solution right now is to manually build the tool - 
+
+```sh
+$ git clone https://github.com/coursera/courseraprogramming
+$ cd courseraprogramming/
+$ virtualenv venv
+$ source venv/bin/activate
+$ python setup.py develop
+$ pip install -r test_requirements.txt
+```
+
+
+### Common errors:
+
+#### ERROR: virtualenv is not compatible with this system or executable
+
+Try using pythonbrew instead of virtualenv
+
+conda install virtualenv instead of pip install virtualenv (uninstall with pip uninstall virtualenv and then install again)
+
+https://stackoverflow.com/questions/5904319/problem-with-virtualenv-in-mac-os-x
+
+#### ERROR: SyntaxError: Missing parentheses in call to 'print' when running any command
+
+Use python 2.7 instead of 3 
+
+# Introducing 'courseraprogramming'
 *courseraprogramming* is a software development toolkit that helps to develop asynchronous graders for Coursera (typically programming assignments). *courseraprogramming* is mostly meant to provide tools to simulate the production environment locally to test docker graders effectively.
 
 Some of the advanced features will also let you automate grader updates and customize grading timeouts and resources.
