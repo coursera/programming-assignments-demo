@@ -57,6 +57,10 @@ Use of environment variables as part of the grader is not prohibited but we do *
 One of the most common issues while working with docker graders on Coursera is due to setting up inappropriate permissions in the Dockerfile.
 **Coursera's infrastructure executes docker images as non-root users without any network access for security reasons** and its important to set permissions carefully for files/directories that will be read/written/executed inside the docker container. Please take a look at the example **Dockerfile** to see how to setup appropriate permissions.
 
+### Question 6: Will the graders have a hostname and ip address?
+Coursera's infrastructure executes docker images as non-root users without any network access. Graders have fixed hostname with value "somehost", and fixed ip address - "192.168.1.2", which may be helpful to mimic some network connection. 
+
+
 ### Question 6: What are the default resources and timeouts that are configured for a grader? Can I customize them?
 We expect the docker grader image and the learner submission to be less than 8 GB in size. Please contact Coursera if you are unable to compress your grader image below that size.
 
