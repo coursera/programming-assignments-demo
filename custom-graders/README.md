@@ -6,7 +6,7 @@ $ git clone https://github.com/coursera/programming-assignments-demo.git $BASE_P
 $ cd $BASE_PATH/programming-assignments-demo
 ```
 
-We'll start by exploring the custom grader associated with our [demo course](https://www.coursera.org/learn/pa-on-demand).
+We'll start by exploring the custom grader associated with our [demo course](https://www.coursera.org/learn/pa-on-demand). The files are in `/DemoJavaGrader`.
 
 As you might've seen in the demo course, the programming assignment has two parts expecting learners to upload java programs for :
 - Factoring a number
@@ -14,7 +14,7 @@ As you might've seen in the demo course, the programming assignment has two part
 
 We use a single Docker grader to grade both of these parts. You can view the source code of the demo grader as shown below:
 ```sh
-$ cd custom-graders/DemoAssignmentGrader/GraderFiles
+$ cd custom-graders/DemoJavaGrader/GraderFiles
 $ ls
 ```
 
@@ -58,7 +58,7 @@ One of the most common issues while working with Docker graders on Coursera is d
 **Coursera's infrastructure executes Docker images as non-root users without any network access for security reasons** and its important to set permissions carefully for files/directories that will be read/written/executed inside the Docker container. Please take a look at the example **Dockerfile** to see how to set up appropriate permissions.
 
 ### Question 6: Will the graders have a hostname and ip address?
-Coursera's infrastructure executes Docker images as non-root users without any network access. Graders have fixed hostname with value "somehost", and fixed ip address - "192.168.1.2", which may be helpful to mimic some network connection. 
+Coursera's infrastructure executes Docker images as non-root users without any network access. Graders have fixed hostname with value "somehost", and fixed ip address - "192.168.1.2", which may be helpful to mimic some network connection.
 
 
 ### Question 7: What are the default resources and timeouts that are configured for a grader? Can I customize them?
@@ -67,12 +67,12 @@ We expect the Docker grader image and the learner submission to be less than 8 G
 When running the grader on a submission, we provide a 1GB RAM and 1 Full CPU Core i.e. ~3 compute units within Amazon EC2 (~2.5 GHz modern Intel x86 core) for all graders on our platform by default. Once we initiate grading via the provided Docker graders, we have set a default timeout of 60 minutes after which Grading is stopped and a 'Timeout' error is reported to the learners. These resources and timeouts are customizable. Please see below section on *courseraprogramming* for more information on customizing resources.
 
 ### Question 8: Are there any other example graders available?
-Here is a python grader used by one of our instructors in the discrete optimization course that might be helpful to look at: https://github.com/discreteoptimization/assignment.
+Yes, you can find a Python-based grader template in `/DemoPythonGrader/`. This is a minimal Python grader intended to onboard instructors and can be used as a starting point for instructors to adapt to their needs. Additionally, one of our instructors in the discrete optimization course has a Python grader that might be helpful to look at: https://github.com/discreteoptimization/assignment.
 
 ### Building a Docker image.
 ***After setting up Docker, you can begin working on your grader source code keeping the above FAQs in mind. After you have written your grader source code based on the recommendations provided, you'll have to package it using Docker using a *Dockerfile*.***
 
-*Please Note: Before building your Docker image for local testing, you need to update the demo grader's '[Dockerfile](https://github.com/coursera/programming-assignments-demo/blob/master/custom-graders/DemoAssignmentGrader/GraderFiles/Dockerfile)' according the instructions mentioned at the bottom of the Dockerfile itself.*
+*Please Note: Before building your Docker image for local testing, you need to update the demo grader's '[Dockerfile](https://github.com/coursera/programming-assignments-demo/blob/master/custom-graders/DemoJavaGrader/GraderFiles/Dockerfile)' according the instructions mentioned at the bottom of the Dockerfile itself.*
 
 ```sh
 $ docker build -t demo_grader.v1.1 .
@@ -89,9 +89,9 @@ Successfully built xxxxxxxxxx
 ### Uploading Docker Build Files
 A zipped file containing a Dockerfile along with custom files can now be uploaded directly to Coursera, rather than uploading a full Docker image. A Dockerfile along with build files must be directly within the zip file, at the top level directory. Coursera will then host the Docker image building process. This feature is currently only supported via the web client
 
-##  March 2018 alert 
+##  March 2018 alert
 
-We are aware of issues with courseraprogramming tool. The solution right now is to manually build the tool - 
+We are aware of issues with courseraprogramming tool. The solution right now is to manually build the tool -
 
 ```sh
 $ git clone https://github.com/coursera/courseraprogramming
@@ -115,10 +115,10 @@ https://stackoverflow.com/questions/5904319/problem-with-virtualenv-in-mac-os-x
 
 #### ERROR: SyntaxError: Missing parentheses in call to 'print' when running any command
 
-Use python 2.7 instead of 3 
+Use python 2.7 instead of 3
 
 #### \<main\> panicked at 'Could not exec grader.' in Coursera, but locally the grader works
-  
+
 executeGrader.sh may have Windows line endings (^M). Try changing the file to unix format.
 https://stackoverflow.com/questions/64749/m-character-at-end-of-lines
 
@@ -143,7 +143,7 @@ Docker graders are augmented in certain ways when they are run on Coursera's pro
 Here is a simple command to test a grader locally (Note that you have to append partId HxbKF or ov8KA):
 ```sh
 $ export CustomGraderPath=$BASE_PATH/programming-assignments-demo/custom-graders/
-$ courseraprogramming grade local demo_grader.v1.1 $CustomGraderPath/DemoAssignmentGrader/SampleSubmission/FactoringSampleSubmission partId HxbKF
+$ courseraprogramming grade local demo_grader.v1.1 $CustomGraderPath/DemoJavaGrader/SampleSubmission/FactoringSampleSubmission partId HxbKF
 ```
 
 **After your Docker grader passes all tests in *courseraprogramming*, it's time to upload your Docker grader. You can choose to upload the build files or the locally compiled Docker image**
@@ -162,7 +162,7 @@ $ courseraprogramming grade local demo_grader.v1.1 $CustomGraderPath/DemoAssignm
 - Add/Edit the programming assignment 'Custom Grader' part you want to work with
 - Click on Upload Build Files and select the .zip file created in the above step
 - Wait for the grader to upload and process successfully
-- Make sure you see the correct grader file associated with the programming assignment part in the dropdown list of all uploaded graders. *Note* You can also delete old unused graders by deleting the corresponding grader asset within the 'Assets' tab in the course authoring interface. 
+- Make sure you see the correct grader file associated with the programming assignment part in the dropdown list of all uploaded graders. *Note* You can also delete old unused graders by deleting the corresponding grader asset within the 'Assets' tab in the course authoring interface.
 - Review and Publish the new programming assignment
 
 
@@ -180,7 +180,7 @@ $ docker save demo_grader.v1.1 > demo_grader.v1.1.tar
 - Add/Edit the programming assignment 'Custom Grader' part you want to work with
 - Click on Upload Full Image and select the .tar file created in the above step
 - Wait for the grader to upload and process successfully
-- Make sure you see the correct grader file associated with the programming assignment part in the dropdown list of all uploaded graders. *Note* You can also delete old unused graders by deleting the corresponding grader asset within the 'Assets' tab in the course authoring interface. 
+- Make sure you see the correct grader file associated with the programming assignment part in the dropdown list of all uploaded graders. *Note* You can also delete old unused graders by deleting the corresponding grader asset within the 'Assets' tab in the course authoring interface.
 - Review and Publish the new programming assignment
 
 **Alternatively, you can upload your Docker grader directly via courseraprogramming without using the web client.**
