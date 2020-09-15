@@ -26,7 +26,7 @@ if [ $local != "1" ]
 then
 	GRADER_DIRECTORY=FactoringGrader
 else
-	GRADER_DIRECTORY=../FactoringGrader
+	GRADER_DIRECTORY=./FactoringGrader
 fi
 
 SUBMISSION_CLASS=Factoring
