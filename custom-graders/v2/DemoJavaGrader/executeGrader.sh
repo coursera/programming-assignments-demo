@@ -47,7 +47,7 @@ fi
 # Check if the compilation was successful
 if [ ! $? -eq 0 ]; then
   echo "{ \"fractionalScore\":0.0, \"feedback\":\"Compile Error (GrIDV2 stdout)\" }"
-  echo "{ \"fractionalScore\":0.0, \"feedback\":\"Compile Error (GrIDV2 feedback)\" }" > /shared/feedback.txt
+  echo "{ \"fractionalScore\":0.0, \"feedback\":\"Compile Error (GrIDV2 feedback)\" }" > /shared/feedback.json
   exit 0
 fi
 
@@ -57,7 +57,7 @@ cat "$GRADER_DIRECTORY"/testCases.txt | java "$SUBMISSION_CLASS" 1> learnerOutpu
 # Check if the learner's program ran successfully
 if [ ! $? -eq 0 ]; then
 	echo "{ \"fractionalScore\": 0.0, \"feedback\":\"Your submission produced runtime errors (GrIDV2 stdout)\" }"
-	echo "{ \"fractionalScore\": 0.0, \"feedback\":\"Your submission produced runtime errors (GrIDV2 feedback)\" }" > /shared/feedback.txt
+	echo "{ \"fractionalScore\": 0.0, \"feedback\":\"Your submission produced runtime errors (GrIDV2 feedback)\" }" > /shared/feedback.json
 	exit 0
 fi
 

@@ -115,7 +115,7 @@ public class Grader {
 			richWriter.write(richFeedback);
 			richWriter.close();
                 } catch(IOException io) {
-                        System.err.println("Got an exception writing to feedback.txt!");
+                        System.err.println("Got an exception writing to feedback.json!");
                         System.err.println(io.getMessage());
                         io.printStackTrace(System.err);
                         feedback = io.getMessage();
