@@ -35,7 +35,7 @@ public class Grader {
                               env.get(envName));
         	}
 
-		boolean local = env.get("LOCAL").equals("1");
+		boolean local = env.get("LOCAL") != null;
 
 		String feedbackfile = "/shared/feedback.json";
 		String richFeedbackFile = "richFeedback.html";
