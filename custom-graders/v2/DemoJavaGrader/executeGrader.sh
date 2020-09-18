@@ -24,7 +24,7 @@ fi
 
 if [ $local != "1" ]
 then
-	GRADER_DIRECTORY=FactoringGrader
+	GRADER_DIRECTORY=/grader/FactoringGrader
 else
 	GRADER_DIRECTORY=./FactoringGrader
 fi
@@ -47,7 +47,12 @@ fi
 # Check if the compilation was successful
 if [ ! $? -eq 0 ]; then
   echo "{ \"fractionalScore\":0.0, \"feedback\":\"Compile Error (GrIDV2 stdout)\" }"
-  echo "{ \"fractionalScore\":0.0, \"feedback\":\"Compile Error (GrIDV2 feedback)\" }" > /shared/feedback.json
+  if [ $local != "1" ]
+     then
+         echo "{ \"fractionalScore\":0.0, \"feedback\":\"Compile Error (GrIDV2 feedback)\" }" > /shared/feedback.json
+  else
+         echo "{ \"fractionalScore\":0.0, \"feedback\":\"Compile Error (GrIDV2 feedback)\" }" > ./shared/feedback.json
+  fi
   exit 0
 fi
 
@@ -62,7 +67,12 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Compile Grader.java
-javac Grader.java
+if [ $local != "1" ]
+then
+    javac -d . /grader/Grader.java
+else
+    javac -d . ./grader/Grader.java
+fi
 
 # Use Grader.java to compare learnerOutput.txt and solution.txt
 java Grader "$GRADER_DIRECTORY"/solution.txt learnerOutput.txt
