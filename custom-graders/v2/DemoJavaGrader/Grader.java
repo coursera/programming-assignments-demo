@@ -27,25 +27,24 @@ public class Grader {
 
 		Map<String, String> env = System.getenv();
 
+		// Printing to Standard Error (which will show up in logs)
+		// for debugging.
+		System.err.println("This is an example standard error");
+
 		// Print Evnivornment variables
-		System.out.println("Environment variables: \n");
+		System.out.println("Environment variables:");
         	for (String envName : env.keySet()) {
             		System.out.format("%s=%s%n",
                               envName,
                               env.get(envName));
         	}
 
-		boolean local = env.get("LOCAL") != null;
-
 		String feedbackfile = "/shared/feedback.json";
-		String richFeedbackFile = "richFeedback.html";
-
-		if(local) {
-			feedbackfile = "./shared/feedback.json";
-		}
+		String richFeedbackFileName = "richFeedback.html";
+		String richFeedbackFilePath = "/shared/" + richFeedbackFileName;
 
 		String feedback;
-		System.err.println("cwd: " + System.getProperty("user.dir"));
+		System.out.println("cwd: " + System.getProperty("user.dir"));
 		try {
 			BufferedReader assignmentSolution = new BufferedReader(new FileReader(args[0]));
 			BufferedReader learnerSolution = new BufferedReader(new FileReader(args[1]));
@@ -85,37 +84,29 @@ public class Grader {
 			feedback = io.getMessage();
 		}
 
-	
-		// Construct jsonOutput in the format expected by Coursera's infrastructure.
-
-		// fractionalScore must be between 0.0 to 1.0.
-		String feedbackStdout = feedback + " (GrID V2 stdout)";
-		String jsonOutput = "{" + "\"fractionalScore\":" + finalFractionalScore + "," + "\"feedback\":" + "\"" + feedbackStdout + "\"" + "}";
-		System.out.println(jsonOutput);
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(feedbackfile));
 			String feedbackUpdated = feedback + " (GrID V2 feedback)";
-			jsonOutput = "{" + 
+			// Construct jsonOutput in the format expected by Coursera's infrastructure.
+			// fractionalScore must be between 0.0 to 1.0.
+			String jsonOutput = "{" + 
 				"\"fractionalScore\":" + finalFractionalScore + "," + 
 				"\"feedback\":" + "\"" + feedbackUpdated + "\"" + "," +
-				"\"richFeedbackFile\":" + "\"" + richFeedbackFile + "\"" +
+				"\"richFeedbackFileName\":" + "\"" + richFeedbackFileName + "\"" + "," +
+				"\"richFeedbackType\":" + "\"HTML\"" +
 			    "}";
+			System.out.println("Feedback: ");
+			System.out.println(jsonOutput);
 			writer.write(jsonOutput);
 			writer.close();	
 
-			String richFeedbackpath = "";
-			if(local) { 
-				richFeedbackpath = "./shared/" + richFeedbackFile;
-			} else {
-				richFeedbackpath = "/shared/" + richFeedbackFile;
-			}
-			BufferedWriter richWriter = new BufferedWriter(new FileWriter(richFeedbackpath));
+			BufferedWriter richWriter = new BufferedWriter(new FileWriter(richFeedbackFilePath));
 			String richFeedback = "<html><head><title> Rich Feedback</title></head><body><h1>Rich Feedback</h1><ul><li><font color=green>Green feedback</font></li><li><font color=red>Red feedback</font></li></ul></body></html>";
 			richWriter.write(richFeedback);
 			richWriter.close();
                 } catch(IOException io) {
-                        System.err.println("Got an exception writing to feedback.json!");
+                        System.err.println("Got an exception writing feedback to file!");
                         System.err.println(io.getMessage());
                         io.printStackTrace(System.err);
                         feedback = io.getMessage();
