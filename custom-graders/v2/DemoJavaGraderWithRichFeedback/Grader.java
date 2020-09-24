@@ -39,10 +39,6 @@ public class Grader {
                               env.get(envName));
         	}
 
-		String feedbackfile = "/shared/feedback.json";
-		String richFeedbackFileName = "richFeedback.html";
-		String richFeedbackFilePath = "/shared/" + richFeedbackFileName;
-
 		String feedback;
 		System.out.println("cwd: " + System.getProperty("user.dir"));
 		try {
@@ -84,23 +80,39 @@ public class Grader {
 			feedback = io.getMessage();
 		}
 
-
 		try {
+			// feedback.json file is required and needs to be updated as a last step of the grading.
+			// This file needs to be in /shared/ folder. Coursera's autograder infrastructure 
+			// uses this as evaluation, and shown to the learners appropriately.
+			String feedbackfile = "/shared/feedback.json";
 			BufferedWriter writer = new BufferedWriter(new FileWriter(feedbackfile));
 			String feedbackUpdated = feedback + " (GrID V2 feedback)";
-			// Construct jsonOutput in the format expected by Coursera's infrastructure.
+			// Construct jsonFeedback in the format expected by Coursera's infrastructure.
 			// fractionalScore must be between 0.0 to 1.0.
-			String jsonOutput = "{" + 
-				"\"fractionalScore\":" + finalFractionalScore + "," + 
-				"\"feedback\":" + "\"" + feedbackUpdated + "\"" + "," +
-				"\"richFeedbackFileName\":" + "\"" + richFeedbackFileName + "\"" + "," +
-				"\"richFeedbackType\":" + "\"HTML\"" +
+
+			// Providing rich feedback in a separate file is possible and is completely optional.
+			// Currently supported rich feedback types are : HTML and TXT.
+			// If the grader is producing rich feedback, it's type need to be specified feedback.json
+			// richFeedbackType field is optional, if it provided, then the grader is expected
+			// to provide corresponding rich feedback file in the /shared/ folder.
+			// The following example demonstrates using HTMl rich feedback.
+			String jsonFeedback = "{" +
+				"\"fractionalScore\":" + finalFractionalScore + "," +   // Required field.
+				"\"feedback\":" + "\"" + feedbackUpdated + "\"" + "," + // Required field.
+				"\"richFeedbackType\":" + "\"HTML\"" +                  // Optional field.
 			    "}";
 			System.out.println("Feedback: ");
-			System.out.println(jsonOutput);
-			writer.write(jsonOutput);
+			System.out.println(jsonFeedback);
+			writer.write(jsonFeedback);
 			writer.close();	
 
+			// Like feedback.json, richFeedback.html should exist /shared/ folder if the json feedback
+			// above has the field richFeedbackType is set to "HTML" (similarly richFeedback.txt for "TXT" type).
+			// Most importantly if there is richFeedback learner will not see "feedback" provided in the json, however
+			// this field is required for backward compatibility, but the value can be empty. 
+			String richFeedbackFilePath = "/shared/richFeedback.html";
+			// This example obviously is producing static feedback to demonstrate the idea, but this
+			// would be dynamic and different based on the student submission correctness.
 			BufferedWriter richWriter = new BufferedWriter(new FileWriter(richFeedbackFilePath));
 			String richFeedback = "<html><head><title> Rich Feedback</title></head><body><h1>Rich Feedback</h1><ul><li><font color=green>Green feedback</font></li><li><font color=red>Red feedback</font></li></ul></body></html>";
 			richWriter.write(richFeedback);
