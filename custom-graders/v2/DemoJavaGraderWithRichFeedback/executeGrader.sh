@@ -15,7 +15,7 @@ SUBMISSION_CLASS=Factoring
 
 # Compile the learner's program in the current directory. We can safely assume that there
 # would be a single submission file in this directory.
-javac -d . /shared/submission/$filename
+javac -d . /shared/submission/Factoring.java
 
 # Note: Nothing except Json object containing 'fractionalScore' and 'feedback' should be written
 # to stdout.
