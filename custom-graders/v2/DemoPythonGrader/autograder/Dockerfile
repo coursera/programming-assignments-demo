@@ -13,7 +13,6 @@ RUN mkdir /grader/solutions
 # The commands below copy files into the Docker image.
 # Main grader file
 COPY grader.py /grader/grader.py
-COPY executeGrader.sh /grader/executeGrader.sh
 # Helper functions
 COPY util.py /grader/util.py
 COPY testCases.py /grader/testCases.py
@@ -26,4 +25,4 @@ COPY solutions/* /grader/solutions/
 RUN chmod a+rwx -R /grader/
 
 # Setup the command that will be invoked when your docker image is run.
-ENTRYPOINT ["./grader/executeGrader.sh"]
+ENTRYPOINT ["grader/grader.py"]

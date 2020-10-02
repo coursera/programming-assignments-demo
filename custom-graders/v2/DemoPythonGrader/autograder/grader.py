@@ -29,7 +29,7 @@ def main(partId):
     submission_location = "/shared/submission/"
 
 
-    learnerFile = os.environ['fileName']
+    learnerFile = os.environ['filename']
     # Save the submission to /grader/ folder, which has executable permissions
     sub_source = submission_location + learnerFile
     sub_destination = '/grader/submission.py'
@@ -82,7 +82,7 @@ def main(partId):
 
 if __name__ == '__main__':
     try:
-        partid = sys.argv[1]
+        partid = os.environ['partId']
     except Exception as e:
         print_stderr("Please provide the partId.")
         send_feedback(0.0, "Please provide the partId.")
