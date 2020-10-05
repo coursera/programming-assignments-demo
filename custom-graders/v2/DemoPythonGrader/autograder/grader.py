@@ -6,7 +6,7 @@
 import sys, os, stat, shutil
 
 # Import helper functions from util.py, and testCases.py
-from util import print_stderr, send_feedback, match_partId, stdout_redirected
+from util import print_stderr, send_feedback, match_partId
 from testCases import createTests
 
 def main(partId):
@@ -56,9 +56,6 @@ def main(partId):
     # Number of test cases failed.
     numTestCasesFailed = 0;
     try:
-        #stdout_redirected prevents print statements from learner submission
-        #from being stored in stdout
-        # with stdout_redirected():
         learnerOutput = [submission.main(x) for x in testCase["input"]]
     except Exception as e:
         send_feedback(0.0, "Your code returned this error: " + str(e))
