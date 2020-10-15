@@ -8,9 +8,11 @@ def print_stderr(error_msg):
 # compile json object for sending score and feedback to Coursera
 def send_feedback(score, msg):
     post = {'fractionalScore': score, 'feedback': msg}
+    # Optional: this goes to container log and is best practice for debugging purpose
+    print(json.dumps(post))
+    # This is required for actual feedback to be surfaced
     with open("/shared/feedback.json", "w") as outfile:
         json.dump(post, outfile)
-        print(json.dumps(post))
 
 # helper function to match part Ids
 def match_partId(partId, testCases):
