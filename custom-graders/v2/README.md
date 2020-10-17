@@ -1,23 +1,24 @@
 # New V2 Format Custom grader samples
 
-We are upgrading the infrastructure system for Coursera Programming Assignment auto-graders. This repository has now been updated with "v2" format autograders in the custom-graders/v2 folders. This "v2" format ensures that your autograder will be compatible with our new infrastructure.
+We are upgrading the infrastructure system for Coursera Programming Assignment auto-graders. This repository has now been updated with "v2" format autograders in the custom-graders/v2 folder. This "v2" format ensures that your autograder will be compatible with our new infrastructure.
 
 ### What is new in V2?
 Please refer to this [doc](https://docs.google.com/document/d/1pC6nvQbgVGoQ1LUoKKfxc-Hi4NkhhlnKKG_Wnydu5p8/) to know more about what is available in autograder v2.
 
-The "v2 format" for autograders will be come the default format starting November 18. If you are actively creating autograders between October 2020 and January 2021, we highly encourage you to reach out to your partner support teams for early access to the v2 infrastructure. This will ensure that you can incorporate v2 formatting into your autograder development, as soon as possible. Please check out the link above for details on gaining early access.
+The "v2 format" for autograders will become the default format starting November 18. If you are actively creating autograders between October 2020 and January 2021, we highly encourage you to reach out to your partner support teams for early access to the v2 infrastructure. This will ensure that you can incorporate v2 formatting into your autograder development, as soon as possible. Please check out the link above for details on gaining early access.
 
 ### Demo Java Grader
 
-DemoJavaGrader is one custom grader sample demonstrates what mainly changed in autograder v2.
+DemoJavaGrader demonstrates what is new in autograder v2.
 
 Graders now need to produce ``feedback.json`` in ``/shared`` folder in the same format as before, which is : 
 ```sh
 {"fractionalScore": 0.2, "feedback": "You failed"}
 ```
+
 ### Demo Python Grader
 
-In V2, parameters to the custom graders are now passed as environment variables, as opposed to command line arguments (in v1). This example demonstrates getting partId as an environment vairable.
+In V2, parameters to the custom graders are now passed as environment variables, as opposed to command line arguments (in v1). DemoPythonGrader demonstrates getting partId as an environment vairable.
 
 ### Demo Java Grader With Rich Feedback
 
