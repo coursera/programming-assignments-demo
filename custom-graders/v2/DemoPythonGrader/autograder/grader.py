@@ -28,8 +28,17 @@ def main(partId):
     # please ensure that the grader first moves the files to a folder with the correct permissions to unzip.
     submission_location = "/shared/submission/"
 
+    # Each partId is evaluated one at a time; thus, only one submission file will be stored
+    # at a time in the /shared/submission/ directory.
+    for file in os.listdir(submission_location):
+        if file.endswith(".py"):
+            learnerFile = file
+        else:
+            learnerFile = None
+    if learnerFile is None:
+        send_feedback(0.0, "Your file may not have the right extension.")
+        return
 
-    learnerFile = os.environ['filename']
     # Save the submission to /grader/ folder, which has executable permissions
     sub_source = submission_location + learnerFile
     sub_destination = '/grader/submission.py'
