@@ -29,7 +29,17 @@ def main(partId):
     submission_location = "/shared/submission/"
 
 
-    learnerFile = os.environ['filename']
+    # Each partId is evaluated one at a time; thus, only one submission file will be stored
+    # at a time in the /shared/submission/ directory.
+    for file in os.listdir(submission_location):
+        if file.endswith(".py"):
+            learnerFile = file
+        else:
+            learnerFile = None
+    if learnerFile is None:
+        send_feedback(0.0, "Your file may not have the right extension.")
+        return
+
     # Save the submission to /grader/ folder, which has executable permissions
     sub_source = submission_location + learnerFile
     sub_destination = '/grader/submission.py'
