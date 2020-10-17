@@ -37,5 +37,5 @@ In V2, coursera can access certain predefined domains, from the the grader. This
 
 # Introducing 'coursera_autograder'
 
-[*coursera_autograder*] (https://github.com/coursera/coursera_autograder/blob/master/README.rst) is a replacement for *courseraprogramming* to test and upload v2 graders.
+[coursera_autograder](https://github.com/coursera/coursera_autograder/blob/master/README.rst) is a replacement for *courseraprogramming* to test and upload v2 graders.
 
