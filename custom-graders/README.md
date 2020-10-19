@@ -1,6 +1,11 @@
 # Creating a Custom Grader for Coursera
 
-### Download the grader source code locally
+## Heads up!
+We are upgrading the infrastructure system for Coursera Programming Assignment auto-graders. This repository has now been updated with "v2" format autograders in the custom-graders/v2 folder. This "v2" format ensures that your autograder will be compatible with our new infrastructure.
+### What is new in V2?
+Please refer to this [doc](https://docs.google.com/document/d/1pC6nvQbgVGoQ1LUoKKfxc-Hi4NkhhlnKKG_Wnydu5p8/edit#heading=h.9ojji9woslet) to learn more about what is available in autograder v2.
+
+## Download the grader source code locally
 ```sh
 $ git clone https://github.com/coursera/programming-assignments-demo.git $BASE_PATH/programming-assignments-demo
 $ cd $BASE_PATH/programming-assignments-demo
