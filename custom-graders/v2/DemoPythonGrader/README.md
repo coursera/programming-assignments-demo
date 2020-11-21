@@ -28,7 +28,7 @@ The folder `/sample-submissions` is not required for successful build, but in th
 1. Run the below command to build the Docker image with the image tag `pythongrader`:
 <br>`$ docker build -t pythongrader autograder/`
 
-2. Run the grader locally using [`courseraprogramming`](https://github.com/coursera/coursera_autograder) and provided sample submissions in the `sample-submissions` folder:
+2. Run the grader locally using [`coursera_autograder`](https://github.com/coursera/coursera_autograder) and provided sample submissions in the `sample-submissions` folder:
 <br>`$ coursera_autograder grade local pythongrader sample-submissions/sample-flipSign/ '{"partId":"5ShhY", "fileName":"flipSign.py"}' --dst-dir ~/Desktop`
 <br>or
 <br>`$ $ coursera_autograder grade local pythongrader sample-submissions/sample-multiply/ '{"partId":"Zb6wb", "fileName":"multiply.py"}' --dst-dir ~/Desktop`
