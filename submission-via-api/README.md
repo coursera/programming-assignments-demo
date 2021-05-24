@@ -88,8 +88,11 @@ HTTP Code: 201 (Created)
 	"elements": [{  
 	  	"id": String,  
 		"courseId": String,  
-	    "itemId": String,  
-	    "evaluation": {  
+	    "itemId": String,   
+	}],  
+	"paging": null,  
+  	"linked": {
+  		"onDemandProgrammingScriptEvaluations.v1": {[
 	    	/**  
 	    	 * Contains the overall score associated with the whole submission.  
 	    	 * Only present if evaluation for all submitted parts has been completed.  
@@ -153,10 +156,8 @@ HTTP Code: 201 (Created)
 				},  
 				... similarly for all other parts in the assignment.  
 			}  
-		}  
-	}],  
-	"paging": null,  
-  	"linked": null  
+		]} 
+  	}
 }  
 ```
   
