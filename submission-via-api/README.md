@@ -5,7 +5,7 @@ This use case might particularly be useful for instructors who want to integrate
 The API
 
 POST
-www.coursera.org/api/onDemandProgrammingScriptSubmissions.v1
+www.coursera.org/api/onDemandProgrammingScriptSubmissions.v1?includes=evaluation
 
 Body:  
 ```
