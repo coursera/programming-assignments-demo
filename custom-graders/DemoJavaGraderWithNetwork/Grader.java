@@ -115,7 +115,7 @@ public class Grader {
 			String richFeedbackFilePath = "/shared/htmlFeedback.html";
 
 			// In this example we are also showing an example to make network calls and merely copying to rich feedback file.
-			download("https://coursera.org/", richFeedbackFilePath);
+			download("https://github.com/", richFeedbackFilePath);
                 } catch(IOException io) {
                         System.err.println("Got an exception writing feedback to file!");
                         System.err.println(io.getMessage());

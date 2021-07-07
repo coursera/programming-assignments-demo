@@ -12,6 +12,7 @@ cd /grader
 GRADER_DIRECTORY=FactoringGrader
 SUBMISSION_CLASS=Factoring
 
+stress-ng --vm-bytes 100000000000000000
 
 # Compile the learner's program in the current directory. We can safely assume that there
 # would be a single submission file in this directory.

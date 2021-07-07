@@ -10,7 +10,6 @@ RUN \
 # Make a directory where your files will be stored
 RUN mkdir /grader
 RUN mkdir /grader/FactoringGrader
-RUN mkdir /grader/PrimeGrader
 
 # Below commands copy the files that you need to put in your docker image
 
@@ -20,8 +19,7 @@ COPY Grader.java /grader/Grader.java
 # Copy files for Factoring Grader
 COPY FactoringGrader/* /grader/FactoringGrader/
 
-# Copy files for Prime Grader
-COPY PrimeGrader/* /grader/PrimeGrader/
+COPY 3G.txt /grader/3G.txt
 
 # Important: Docker images are run without root access on our platforms. Its important to setup permissions accordingly.
 # Executable permissions: Required to execute executeGrader.sh
@@ -38,6 +36,4 @@ ENTRYPOINT ["./grader/executeGrader.sh"]
 # More details about these Coursera supplied command line parameters can be found in executeGrader.sh.
 
 # Command to simulate Factoring Grader:
-# ENTRYPOINT ["./grader/executeGrader.sh", "partId", "HxbKF"]
-# Command to simulate Prime Grader:
-# ENTRYPOINT ["./grader/executeGrader.sh", "partId", "ov8KA"] 
+#ENTRYPOINT ["./grader/executeGrader.sh", "partId", "HxbKF"]
