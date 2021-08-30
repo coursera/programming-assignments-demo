@@ -114,7 +114,7 @@ public class Grader {
 			// This example obviously is producing static feedback to demonstrate the idea, but this
 			// would be dynamic and different based on the student submission correctness.
 			BufferedWriter richWriter = new BufferedWriter(new FileWriter(richFeedbackFilePath));
-                        String richFeedback = "<html><head><title> Rich Feedback</title></head><body><h1>Rich Feedback</h1><ul><li><font color=green>Green feedback</font></li><li><font color=red>Red feedback</font></li></ul></body></html>";
+			String richFeedback = "<html><head><title> Rich Feedback</title></head><body><h1>Rich Feedback</h1><ul><li><font color=green>Green feedback</font></li><li><font color=red>Red feedback</font></li></ul></body></html>";
 			richWriter.write(richFeedback);
 			richWriter.close();
                 } catch(IOException io) {
