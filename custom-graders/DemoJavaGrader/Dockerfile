@@ -19,8 +19,6 @@ COPY Grader.java /grader/Grader.java
 # Copy files for Factoring Grader
 COPY FactoringGrader/* /grader/FactoringGrader/
 
-COPY 3G.txt /grader/3G.txt
-
 # Important: Docker images are run without root access on our platforms. Its important to setup permissions accordingly.
 # Executable permissions: Required to execute executeGrader.sh
 # Read permissions: Required to read testCases.txt, solution.txt, Grader.java

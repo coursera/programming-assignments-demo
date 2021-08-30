@@ -7,9 +7,6 @@ export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 # Switch to the grader directory
 cd /grader
 
-echo "ls -l"
-ls -l
-
 # Use the parsed partId to know which part is being graded in the current run.
 
 GRADER_DIRECTORY=FactoringGrader
@@ -37,19 +34,6 @@ if [ ! $? -eq 0 ]; then
 	echo "{ \"fractionalScore\": 0.0, \"feedback\":\"Your submission produced runtime errors\" }" > /shared/feedback.json
 	exit 0
 fi
-
-echo "One thread: "
-dd if=/dev/zero bs=1M count=2070 2> >(grep bytes >&2 ) | gzip -c > /dev/null > onethread.txt
-echo "Tow threads: "
-for i in {1..2}; do dd if=/dev/zero bs=1M count=2070 2> >(grep bytes >&2 ) | gzip -c > /dev/null >> twothreads.txt & done
-
-cat onethread.txt
-cat twothreads.txt
-
-echo "Processor info:"
-cat /proc/cpuinfo
-echo "Memory info: "
-cat /proc/meminfo
 
 # Compile Grader.java
 javac Grader.java
