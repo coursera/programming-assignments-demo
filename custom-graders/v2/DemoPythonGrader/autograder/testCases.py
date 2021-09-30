@@ -18,12 +18,12 @@ def createTests(numTestCases):
     # Compile dictionary. partId's are stored here. ----------------------------
     testCases = {}
     testCases = {"flipSign":
-                    {"partId": "iJECA",
+                    {"partId": "5ShhY",
                      "input": x,
                      "output": [flipSign(j) for j in x]
                     },
                  "multiply":
-                    {"partId": "xWGmO",
+                    {"partId": "Zb6wb",
                      "input": y,
                      "output": [multiply(j) for j in y]
                     }
