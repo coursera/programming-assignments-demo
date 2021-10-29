@@ -6,7 +6,7 @@
 import sys, os, stat, shutil
 
 # Import helper functions from util.py, and testCases.py
-from util import print_stderr, send_feedback, match_partId, stdout_redirected
+from util import print_stderr, send_feedback, match_partId
 from testCases import createTests
 
 def main(partId):
@@ -27,6 +27,7 @@ def main(partId):
     # This is a readonly directory. If you'd like the students to submit a zip with multiple files,
     # please ensure that the grader first moves the files to a folder with the correct permissions to unzip.
     submission_location = "/shared/submission/"
+
 
     # Each partId is evaluated one at a time; thus, only one submission file will be stored
     # at a time in the /shared/submission/ directory.
@@ -65,9 +66,6 @@ def main(partId):
     # Number of test cases failed.
     numTestCasesFailed = 0;
     try:
-        #stdout_redirected prevents print statements from learner submission
-        #from being stored in stdout
-        # with stdout_redirected():
         learnerOutput = [submission.main(x) for x in testCase["input"]]
     except Exception as e:
         send_feedback(0.0, "Your code returned this error: " + str(e))
@@ -91,7 +89,7 @@ def main(partId):
 
 if __name__ == '__main__':
     try:
-        partid = sys.argv[2]
+        partid = os.environ['partId']
     except Exception as e:
         print_stderr("Please provide the partId.")
         send_feedback(0.0, "Please provide the partId.")

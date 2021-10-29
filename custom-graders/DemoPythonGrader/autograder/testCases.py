@@ -23,7 +23,7 @@ def createTests(numTestCases):
                      "output": [flipSign(j) for j in x]
                     },
                  "multiply":
-                    {"partId": "Jn4Lh",
+                    {"partId": "Zb6wb",
                      "input": y,
                      "output": [multiply(j) for j in y]
                     }
