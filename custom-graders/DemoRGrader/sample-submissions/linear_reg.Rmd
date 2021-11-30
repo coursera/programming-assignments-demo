@@ -1,0 +1,48 @@
+---
+title: "Programming Assignment #1"
+output: html_document
+---
+
+## Task 1: Create input and output vectors
+
+For this part of the assignment you should create a vector `x` that contains the values `1 2 3 4 5`, as well as a vector `y` that contains the values `11 18 31 39 47` in the R code chunk below.
+
+```{r}
+x <- c(1,2,3,4,5)
+y <- c(11,18,31,39,47)
+```
+
+
+## Task 2: Create a dataframe
+
+For this part of the assignment create a dataframe `df` of x and y. You can plot the dataframe to help visualize in the R code chunk below:
+
+```{r}
+df <- data.frame(x,y)
+print(df)
+plot(df)
+```
+
+## Task 3: Determine slope and y-intercept 
+
+For this part of the assignment you should generate a line of best fit using `lm()` and store the slope in a variable  `slope` and the y-intercept in a variable `y_int` rounded to a single decimal in the R code chunk below. If you would like you can plot the dataframe and line of best fit to help visualize.
+
+```{r}
+plot(df)
+abline(lm(y~x))
+y_int <- coef(lm(y~x))[[1]]
+y_int <- round(y_int, 1)
+print(y_int)
+slope <- coef(lm(y~x))[[2]]
+slope <- round(slope, 1)
+print(slope)
+```
+
+## Grading Rubric:
+Please note for this assignment you are being autograded on the following 5 objects:
+
+* `x` vector
+* `y` vector
+* `df` dataframe
+* `y_int` scalar value
+* `slope` scalar value
