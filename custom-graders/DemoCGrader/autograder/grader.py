@@ -20,16 +20,16 @@ RUN_TIMEOUT = 2.0               # How long to wait for the test program to run (
 # that the script will look for any file with *.c in the /shared/submission
 # folder, copy it to "project_dir," and rename it to "submission_file."
 TEST_CASES = {
-                "power": {
-                    "partId": "sN0bw",
-                    "project_dir": "/grader/tests/power",
-                    "submission_file": "power.c"
-                },
                 "get-bit": {
                     "partId": "COWV2",
                     "project_dir": "/grader/tests/get-bit",
                     "submission_file": "get-bit.c"
                 },
+                "power": {
+                    "partId": "sN0bw",
+                    "project_dir": "/grader/tests/power",
+                    "submission_file": "power.c"
+                }
             }
 
 # Helper function to send score and feedback to Coursera
