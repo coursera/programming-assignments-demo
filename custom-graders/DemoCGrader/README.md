@@ -30,14 +30,14 @@ Coursera                Online platform that instantiates the Docker container
 At a high-level, this custom grader accomplishes autograding of student submissions following these steps:
 1. The Dockerfile creates the image. It sets up a Python 3 environment and installs dependencies (including make, gcc, and g++). Then, it copies over the relevant files for grading, and assigns appropriate permissions. It launches into the `ENTRYPOINT`, which in this grader is defined as *grader.py*.
 2. In *grader.py*, the `main` function checks the `partId` environment variable to determine which test needs to be run. Note that Coursera will automatically create the `partId` for each assignment part. You MUST make sure that this value matches the `partId` value in *grader.py*!
-3. It then checks for the student submission in the */shared/submission/* directory. This is the standard submission directory across all courses on Coursera, and is a read-only directory. The student submission should have a *.c* extension.
+3. It then checks for the student submission in the */shared/submission/* directory. This is the standard submission directory across all courses on Coursera and is a read-only directory. The student submission should have a *.c* extension.
 4. The student submission is copied to the appropriate */grader/tests* directory (depending on the *partId* provided to the grader).
 5. The script builds the test (using make), which contains a *main.c* and the newly added student submission. For example, see *autograder/tests/power* to see an example of a test where a student needs to write a simple `power(x, y)` function.
 6. After comparing the learner submission outputs to the solutions, the grader calculates the total score and writes to `/shared/feedback.json` with `fractionalScore` and `feedback` fields. On the Coursera platform, this feedback can be viewed by the learner; however, the learner does not have access to container logs (including both stdout and stderr logs) -- only course admin and staff do. Thus, it is important to include appropriate feedback from the custom grader into the `feedback` field of this JSON object. 
 
 ## Description of Contents
 
-This demo includes two example problems for the students, each with an associated set of tests for the auto grader. 
+This demo includes two example problems for the students, each with an associated set of tests for the autograder. 
 
 *Get-bit* asks the student to write a function that finds the value of the n-th bit in a given byte: `getBit(byte, n)`.
 
@@ -167,7 +167,7 @@ You should see the grader output in the terminal. A *feedback.json* file will be
 # cat /shared/feedback.json
 ```
 
-The */shared* directory is used to submit student work and receive feedback in the Coursera system. The naming and structure of this directory is very important!
+The */shared* directory is used to submit student work and receive feedback in the Coursera system. The naming and structure of this directory is very important and should not be changed in grader.py!
 
 When you are done, simply exit the container:
 
@@ -181,7 +181,7 @@ When you are ready to upload the grader to Coursera, create a new **Programming 
 
 Change the *Submit via* type to **Web**. Click **Add Part** and select **Custom Grader**. 
 
-Give the part a name (let's use "Power" as an example). Copy the *Part ID* in the top of the part block (it should be a combination of 5 letters and numbers). This ID is set as the *partId* environment variable when the custom grader Docker container is created, and it must match the partId in the grader.
+Give the part a name (let's use "Power" as an example). Copy the *Part ID* in the top of the part block (it should be a combination of 5 letters and numbers). This ID is set as the *partId* environment variable when the custom grader Docker container is created, and it must match the partId in grader.py.
 
 Open *autograder/grader.py* and look at the `TEST_CASES` variable near the top. Change the `"partId"` for the `"power"` test to match the Part ID from your assignment in Coursera. For example, if my Part ID in the Coursera assignment is `UVzpS`, then I should change the `"power"` test to look like the following:
 
@@ -215,15 +215,15 @@ DemoCGrader.zip
 
 Back in Coursera, under *Docker grader*, click **Upload Build Files**, and select your *DemoCGrader.zip* file.
 
-Once the upload process is complete, you should be able to click **Publish** and **View as learner.** Try submitting the file */sample-submissions/power/power.c* to see if it works. With any luck, you should see a score of *100/100*.
+Once the upload process is complete, click **Publish** and **View as learner.** Try submitting the file */ample-submissions/power/power.c* to see if it works. With any luck, you should see a score of *100/100*.
 
-The *Feedback* link should show you what you saved in the *feedback.json* file. *Logs* shows everything printed to the console in the Docker container (which means you can use `print()` commands in *grader.py* to log debugging message). Remember: students can see *feedback* but CANNOT see *logs*.
+The *Feedback* link should show you what you saved in the *feedback.json* file. *Logs* shows everything printed to the console in the Docker container (which means you can use `print()` commands in *grader.py* to log debugging message). Remember: students can see *feedback*, but they CANNOT see *logs*.
 
 ## Author and License Information
 
-Author: Shawn Hymel
-Date: August 6, 2022
-Written for the Coursera online learning platform
+Author: Shawn Hymel <br />
+Date: August 6, 2022 <br />
+Written for the Coursera online learning platform <br />
 License: 0BSD (unless otherwise stated in the code)
 
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
