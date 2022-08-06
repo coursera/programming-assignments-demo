@@ -16,7 +16,9 @@ COMPILED_APP = "testapp"        # Name of the compiled program (must match in Ma
 COMPILER_TIMEOUT = 2.0          # How long to wait for the compiler to finish (seconds)
 RUN_TIMEOUT = 2.0               # How long to wait for the test program to run (seconds)
 
-# Define the test cases and each associated project directory and file
+# Define the test cases and each associated project directory and file. Note
+# that the script will look for any file with *.c in the /shared/submission
+# folder, copy it to "project_dir," and rename it to "submission_file."
 TEST_CASES = {
                 "power": {
                     "partId": "sN0bw",
@@ -62,12 +64,13 @@ def main(partId):
         return
 
     # Check to make sure that the student submitted a .c file
+    submitted_file = None
     for file in os.listdir(SUBMISSION_SRC):
         if file.endswith(".c"):
             submitted_file = file
-        else:
-            send_feedback(0.0, "Your file must end with a .c extension.")
-            return
+    if submitted_file == None:
+        send_feedback(0.0, "Your file must end with a .c extension.")
+        return
     submitted_file_path = os.path.join(SUBMISSION_SRC, submitted_file)
 
     # Copy the submitted file to the project folder (has executable permissions)

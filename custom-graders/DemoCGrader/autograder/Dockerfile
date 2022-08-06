@@ -9,13 +9,12 @@ RUN \
 
 # Make directories for the submissions and grader/test programs
 RUN mkdir -p /grader/tests
-RUN mkdir -p /shared/submission
 
 # Copy the grader script into the Docker image
 COPY grader.py /grader/grader.py
 
 # Copy the C source code for the tests into the Docker image
-COPY tests/* /grader/tests/
+COPY tests/ /grader/tests/
 
 # Set grader directory to have read/write/execute permissions so we can copy in
 # submissions, compile them, and run them
@@ -23,6 +22,3 @@ RUN chmod a+rwx -R /grader/
 
 # Setup the command that will be invoked when your docker image is run.
 ENTRYPOINT ["grader/grader.py"]
-
-# For debugging (interactive terminal): comment out above and use empty entrypoint
-#ENTRYPOINT []
