@@ -22,7 +22,7 @@ COPY tests/* /grader/tests/
 RUN chmod a+rwx -R /grader/
 
 # Setup the command that will be invoked when your docker image is run.
-#ENTRYPOINT ["grader/grader.py"]
+ENTRYPOINT ["grader/grader.py"]
 
 # For debugging (interactive terminal): comment out above and use empty entrypoint
-ENTRYPOINT []
+#ENTRYPOINT []

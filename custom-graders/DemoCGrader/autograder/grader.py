@@ -19,12 +19,12 @@ RUN_TIMEOUT = 2.0               # How long to wait for the test program to run (
 # Define the test cases and each associated project directory and file
 TEST_CASES = {
                 "power": {
-                    "partId": "4b371f50",
+                    "partId": "sN0bw",
                     "project_dir": "/grader/tests/power",
                     "submission_file": "power.c"
                 },
                 "get-bit": {
-                    "partId": "321da787",
+                    "partId": "COWV2",
                     "project_dir": "/grader/tests/get-bit",
                     "submission_file": "get-bit.c"
                 },
